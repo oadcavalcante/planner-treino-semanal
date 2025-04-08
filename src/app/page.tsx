@@ -9,58 +9,66 @@ const treinoSemana = [
     dia: "Segunda",
     grupoMuscular: "Peito e tríceps",
     sequencia: [
-      { exercicio: "Supino reto", reps: "4x10" },
-      { exercicio: "Supino inclinado com halteres", reps: "3x12" },
-      { exercicio: "Crossover", reps: "3x15" },
-      { exercicio: "Tríceps na polia", reps: "4x12" },
+      { exercicio: "Supino reto com barra", reps: "4x8" },
+      { exercicio: "Supino inclinado com halteres", reps: "3x10" },
+      { exercicio: "Crucifixo na máquina (peck deck)", reps: "3x12" },
+      { exercicio: "Tríceps na polia (corda)", reps: "3x12" },
+      { exercicio: "Tríceps testa com halteres", reps: "3x10" },
     ],
   },
   {
     dia: "Terça",
     grupoMuscular: "Costas e bíceps",
     sequencia: [
-      { exercicio: "Puxada na frente", reps: "4x10" },
-      { exercicio: "Remada curvada", reps: "3x12" },
-      { exercicio: "Pulldown unilateral", reps: "3x15" },
-      { exercicio: "Rosca direta", reps: "4x12" },
+      { exercicio: "Levantamento terra", reps: "4x6" },
+      { exercicio: "Puxada na frente (pegada aberta)", reps: "3x10" },
+      { exercicio: "Remada curvada com barra", reps: "3x8" },
+      { exercicio: "Rosca direta com barra", reps: "3x12" },
+      { exercicio: "Rosca martelo com halteres", reps: "3x10" },
     ],
   },
   {
     dia: "Quarta",
-    grupoMuscular: "Pernas",
+    grupoMuscular: "Pernas e panturrilhas",
     sequencia: [
       { exercicio: "Agachamento livre", reps: "4x8" },
-      { exercicio: "Leg press", reps: "4x12" },
-      { exercicio: "Cadeira extensora", reps: "3x15" },
-      { exercicio: "Flexora", reps: "3x15" },
+      { exercicio: "Leg press", reps: "3x10" },
+      { exercicio: "Cadeira extensora", reps: "3x12" },
+      { exercicio: "Mesa flexora", reps: "3x12" },
+      { exercicio: "Elevação de panturrilha em pé", reps: "3x15" },
     ],
   },
   {
     dia: "Quinta",
-    grupoMuscular: "Ombros",
+    grupoMuscular: "Ombros e abdominais",
     sequencia: [
-      { exercicio: "Desenvolvimento com halteres", reps: "4x10" },
-      { exercicio: "Elevação lateral", reps: "3x12" },
-      { exercicio: "Remada alta", reps: "3x12" },
-      { exercicio: "Crucifixo invertido", reps: "3x15" },
+      { exercicio: "Desenvolvimento com barra (militar)", reps: "4x8" },
+      { exercicio: "Elevação lateral com halteres", reps: "3x12" },
+      { exercicio: "Elevação frontal com halteres", reps: "3x12" },
+      { exercicio: "Abdominal prancha", reps: "3x45s" },
+      { exercicio: "Elevação de pernas (na barra)", reps: "3x15" },
     ],
   },
   {
     dia: "Sexta",
-    grupoMuscular: "Peito e tríceps (leve)",
+    grupoMuscular: "Corpo inteiro (foco em força)",
     sequencia: [
-      { exercicio: "Supino reto com halteres", reps: "3x12" },
-      { exercicio: "Peck deck", reps: "3x15" },
-      { exercicio: "Tríceps francês", reps: "3x12" },
+      { exercicio: "Supino reto com barra", reps: "4x6" },
+      { exercicio: "Remada curvada com barra", reps: "4x6" },
+      { exercicio: "Agachamento livre", reps: "4x6" },
+      { exercicio: "Desenvolvimento com halteres", reps: "3x8" },
+      { exercicio: "Rosca direta com barra", reps: "3x10" },
     ],
   },
   {
     dia: "Sábado",
-    grupoMuscular: "Cardio e core",
+    grupoMuscular: "Hipertrofia geral e core",
     sequencia: [
-      { exercicio: "Abdominal prancha", reps: "3x 1min" },
-      { exercicio: "Corrida leve", reps: "30 min" },
-      { exercicio: "Elevação de pernas", reps: "3x20" },
+      { exercicio: "Supino inclinado com halteres", reps: "3x10" },
+      { exercicio: "Puxada na frente (pegada fechada)", reps: "3x10" },
+      { exercicio: "Elevação lateral com halteres", reps: "3x12" },
+      { exercicio: "Rosca martelo com halteres", reps: "3x12" },
+      { exercicio: "Abdominal prancha lateral", reps: "3x30s" },
     ],
   },
   {
@@ -96,7 +104,7 @@ export default function PlannerPage() {
         {treinoSemana.map((treino) => (
           <TabsContent key={treino.dia} value={treino.dia}>
             <Card className="bg-gradient-to-r from-blue-200 to-blue-300 border-blue-400 shadow-xl text-center">
-              <CardContent className="p-5 sm:p-6 pt-7 sm:pt-8">
+              <CardContent className="p-5 sm:p-6 pt-7 sm:pt-1">
                 <h2 className="text-lg sm:text-xl text-blue-900 mb-4 sm:mb-5">
                   <span className="font-bold">Grupo Muscular:</span> {treino.grupoMuscular}
                 </h2>
