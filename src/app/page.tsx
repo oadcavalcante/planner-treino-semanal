@@ -1,103 +1,125 @@
-import Image from "next/image";
+"use client";
 
-export default function Home() {
+import { Card, CardContent } from "@/components/ui/card";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
+import { Badge } from "@/components/ui/badge";
+
+const treinoSemana = [
+  {
+    dia: "Segunda",
+    grupoMuscular: "Peito e tríceps",
+    sequencia: [
+      { exercicio: "Supino reto", reps: "4x10" },
+      { exercicio: "Supino inclinado com halteres", reps: "3x12" },
+      { exercicio: "Crossover", reps: "3x15" },
+      { exercicio: "Tríceps na polia", reps: "4x12" },
+    ],
+  },
+  {
+    dia: "Terça",
+    grupoMuscular: "Costas e bíceps",
+    sequencia: [
+      { exercicio: "Puxada na frente", reps: "4x10" },
+      { exercicio: "Remada curvada", reps: "3x12" },
+      { exercicio: "Pulldown unilateral", reps: "3x15" },
+      { exercicio: "Rosca direta", reps: "4x12" },
+    ],
+  },
+  {
+    dia: "Quarta",
+    grupoMuscular: "Pernas",
+    sequencia: [
+      { exercicio: "Agachamento livre", reps: "4x8" },
+      { exercicio: "Leg press", reps: "4x12" },
+      { exercicio: "Cadeira extensora", reps: "3x15" },
+      { exercicio: "Flexora", reps: "3x15" },
+    ],
+  },
+  {
+    dia: "Quinta",
+    grupoMuscular: "Ombros",
+    sequencia: [
+      { exercicio: "Desenvolvimento com halteres", reps: "4x10" },
+      { exercicio: "Elevação lateral", reps: "3x12" },
+      { exercicio: "Remada alta", reps: "3x12" },
+      { exercicio: "Crucifixo invertido", reps: "3x15" },
+    ],
+  },
+  {
+    dia: "Sexta",
+    grupoMuscular: "Peito e tríceps (leve)",
+    sequencia: [
+      { exercicio: "Supino reto com halteres", reps: "3x12" },
+      { exercicio: "Peck deck", reps: "3x15" },
+      { exercicio: "Tríceps francês", reps: "3x12" },
+    ],
+  },
+  {
+    dia: "Sábado",
+    grupoMuscular: "Cardio e core",
+    sequencia: [
+      { exercicio: "Abdominal prancha", reps: "3x 1min" },
+      { exercicio: "Corrida leve", reps: "30 min" },
+      { exercicio: "Elevação de pernas", reps: "3x20" },
+    ],
+  },
+  {
+    dia: "Domingo",
+    grupoMuscular: "Descanso",
+    sequencia: [],
+  },
+];
+
+export default function PlannerPage() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm/6 text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-[family-name:var(--font-geist-mono)] font-semibold">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <main className="p-4 sm:p-6 min-h-screen flex flex-col items-center">
+      <h1 className="text-2xl sm:text-4xl font-bold text-blue-800 mb-8 sm:mb-10 text-center max-w-sm sm:max-w-2xl">
+        Planner de treino semanal @oadcavalcante 💪
+      </h1>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
-        </div>
-      </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
-    </div>
+      <Tabs defaultValue="Segunda" className="w-full max-w-sm sm:max-w-4xl">
+        <TabsList className="flex flex-wrap justify-center gap-4 sm:gap-6 mb-16 sm:mb-4 bg-transparent p-0 w-full">
+          {treinoSemana.map((treino) => (
+            <TabsTrigger
+              key={treino.dia}
+              value={treino.dia}
+              className={`flex-grow text-blue-800 text-sm sm:text-base font-semibold px-4 sm:px-5 py-2 sm:py-3 rounded-lg border border-blue-200 bg-white data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:border-blue-500 data-[state=active]:shadow-md hover:bg-blue-100 hover:border-blue-300 transition-all duration-200 ${
+                treino.dia === "Sábado" || treino.dia === "Domingo" ? "mb-8 sm:mb-0" : ""
+              }`}
+            >
+              <span className="block sm:hidden">{treino.dia.split("-")[0].slice(0, 3)}</span>
+              <span className="hidden sm:block">{treino.dia}</span>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+
+        {treinoSemana.map((treino) => (
+          <TabsContent key={treino.dia} value={treino.dia}>
+            <Card className="bg-gradient-to-r from-blue-200 to-blue-300 border-blue-400 shadow-xl text-center">
+              <CardContent className="p-5 sm:p-6 pt-7 sm:pt-8">
+                <h2 className="text-lg sm:text-xl text-blue-900 mb-4 sm:mb-5">
+                  <span className="font-bold">Grupo Muscular:</span> {treino.grupoMuscular}
+                </h2>
+                {treino.sequencia.length > 0 ? (
+                  <ul className="space-y-4 sm:space-y-5">
+                    {treino.sequencia.map((ex, idx) => (
+                      <li
+                        key={idx}
+                        className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-4 sm:p-5 bg-white rounded-lg border border-blue-200 shadow-sm gap-2"
+                      >
+                        <span className="text-blue-800 font-semibold text-sm sm:text-base">{ex.exercicio}</span>
+                        <Badge className="bg-blue-500 text-white text-xs sm:text-sm">{ex.reps}</Badge>
+                      </li>
+                    ))}
+                  </ul>
+                ) : (
+                  <p className="text-blue-700 italic text-base sm:text-lg font-medium">Dia de descanso 💤</p>
+                )}
+              </CardContent>
+            </Card>
+          </TabsContent>
+        ))}
+      </Tabs>
+    </main>
   );
 }
