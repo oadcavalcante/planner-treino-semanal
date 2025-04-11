@@ -83,10 +83,11 @@ const treinoSemana = [
   },
 ];
 
-export default function PlannerPage() {
-  const [completedExercises, setCompletedExercises] = useState({});
+export default function Home() {
+  const [completedExercises, setCompletedExercises] = useState<Record<string, boolean>>({});
   const [completedDays, setCompletedDays] = useState<Record<string, boolean>>({});
 
+  // Carregar estados do localStorage
   useEffect(() => {
     const savedExercises = localStorage.getItem("completedExercises");
     const savedDays = localStorage.getItem("completedDays");
@@ -98,20 +99,20 @@ export default function PlannerPage() {
     }
   }, []);
 
+  // Salvar estados no localStorage
   useEffect(() => {
     localStorage.setItem("completedExercises", JSON.stringify(completedExercises));
     localStorage.setItem("completedDays", JSON.stringify(completedDays));
   }, [completedExercises, completedDays]);
 
+  // Verificar se todos os exercícios de um dia estão concluídos
   useEffect(() => {
     treinoSemana.forEach((treino) => {
       if (treino.sequencia.length > 0) {
-        const allCompleted = treino.sequencia.every((_, idx) => 
-          completedExercises[`${treino.dia}-${idx}` as keyof typeof completedExercises]
-        );
-        if (allCompleted && !completedDays[treino.dia as keyof typeof completedDays]) {
+        const allCompleted = treino.sequencia.every((_, idx) => completedExercises[`${treino.dia}-${idx}`]);
+        if (allCompleted && !completedDays[treino.dia]) {
           setCompletedDays((prev) => ({ ...prev, [treino.dia]: true }));
-        } else if (!allCompleted && completedDays[treino.dia as keyof typeof completedDays]) {
+        } else if (!allCompleted && completedDays[treino.dia]) {
           setCompletedDays((prev) => ({ ...prev, [treino.dia]: false }));
         }
       }
@@ -126,9 +127,10 @@ export default function PlannerPage() {
   };
 
   const toggleDay = (dia: string) => {
-    setCompletedDays((prev: Record<string, boolean>) => {
+    setCompletedDays((prev) => {
       const newState = { ...prev, [dia]: !prev[dia] };
       if (newState[dia]) {
+        // Marcar todos os exercícios do dia como concluídos
         treinoSemana
           .find((treino) => treino.dia === dia)
           ?.sequencia.forEach((_, idx) => {
@@ -138,6 +140,7 @@ export default function PlannerPage() {
             }));
           });
       } else {
+        // Desmarcar todos os exercícios do dia
         treinoSemana
           .find((treino) => treino.dia === dia)
           ?.sequencia.forEach((_, idx) => {
@@ -166,17 +169,15 @@ export default function PlannerPage() {
   };
 
   return (
-    <main className="p-2 sm:p-4 min-h-screen flex flex-col items-center">
+    <main className="p-2 sm:p-4 h-screen flex flex-col items-center justify-center overflow-y-auto">
       <Header />
-      <Tabs defaultValue="Segunda" className="w-full max-w-sm sm:max-w-4xl">
+      <Tabs defaultValue="Segunda" className="w-full max-w-sm sm:max-w-4xl flex-1 flex flex-col">
         <TabsList className="flex flex-wrap justify-center gap-2 sm:gap-4 mb-4 sm:mb-2 bg-transparent p-0 w-full">
           {treinoSemana.map((treino) => (
             <TabsTrigger
               key={treino.dia}
               value={treino.dia}
-              className={`flex-grow text-blue-800 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1 sm:py-2 rounded-lg border border-blue-200 bg-white data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:border-blue-500 data-[state=active]:shadow-md hover:bg-blue-100 hover:border-blue-300 transition-all duration-200 ${
-                treino.dia === "Sábado" || treino.dia === "Domingo" ? "mb-4 sm:mb-0" : ""
-              }`}
+              className="flex-grow text-blue-800 text-xs sm:text-sm font-semibold px-3 sm:px-4 py-1 sm:py-2 rounded-lg border border-blue-200 bg-white data-[state=active]:bg-blue-500 data-[state=active]:text-white data-[state=active]:border-blue-500 data-[state=active]:shadow-md hover:bg-blue-100 hover:border-blue-300 transition-all duration-200"
             >
               <span className="block sm:hidden">{treino.dia.split("-")[0].slice(0, 3)}</span>
               <span className="hidden sm:block">{treino.dia}</span>
@@ -185,16 +186,16 @@ export default function PlannerPage() {
         </TabsList>
 
         {treinoSemana.map((treino) => (
-          <TabsContent key={treino.dia} value={treino.dia}>
+          <TabsContent key={treino.dia} value={treino.dia} className="flex-1 flex items-center justify-center">
             <motion.div
               initial={{ opacity: 1 }}
               animate={{
-                backgroundColor: completedDays[treino.dia as keyof typeof completedDays] ? "#d1fae5" : "transparent",
+                backgroundColor: completedDays[treino.dia] ? "#d1fae5" : "rgba(255, 255, 255, 0)",
               }}
               transition={{ duration: 0.3 }}
-              className="relative"
+              className="relative w-full"
             >
-              <Card className="bg-gradient-to-r from-blue-200 to-blue-300 border-blue-400 shadow-xl text-center">
+              <Card className="bg-gradient-to-r from-blue-200 to-blue-300 border-blue-400 shadow-xl text-center min-h-[150px] sm:min-h-[200px] flex items-center justify-center">
                 <CardContent className="p-3 sm:p-4 pt-5 sm:pt-1">
                   <h2 className="text-base sm:text-lg text-blue-900 mb-2 sm:mb-3">
                     <span className="font-bold">Grupo Muscular:</span> {treino.grupoMuscular}
@@ -204,7 +205,7 @@ export default function PlannerPage() {
                       <div className="flex items-center justify-center gap-2 mb-3">
                         <Checkbox
                           id={`day-${treino.dia}`}
-                          checked={completedDays[treino.dia as keyof typeof completedDays] || false}
+                          checked={completedDays[treino.dia] || false}
                           onCheckedChange={() => toggleDay(treino.dia)}
                           className="border-blue-400 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
                         />
@@ -214,7 +215,7 @@ export default function PlannerPage() {
                         >
                           Dia concluído
                         </label>
-                        {completedDays[treino.dia as keyof typeof completedDays] && (
+                        {completedDays[treino.dia] && (
                           <motion.div
                             initial={{ scale: 0 }}
                             animate={{ scale: 1 }}
@@ -228,33 +229,31 @@ export default function PlannerPage() {
                         {treino.sequencia.map((ex, idx) => (
                           <motion.li
                             key={idx}
-                            className="flex flex-col sm:flex-row justify-between items-start sm:items-center p-3 sm:p-4 bg-white rounded-lg border border-blue-200 shadow-sm gap-1"
+                            className="flex flex-row justify-between items-center p-3 sm:p-4 bg-white rounded-lg border border-blue-200 shadow-sm"
                             initial={{ opacity: 1 }}
                             animate={{
-                              opacity: completedExercises[`${treino.dia}-${idx}` as keyof typeof completedExercises] ? 0.7 : 1,
-                              backgroundColor: completedExercises[`${treino.dia}-${idx}` as keyof typeof completedExercises]
-                                ? "#e6f3ff"
-                                : "#ffffff",
+                              opacity: completedExercises[`${treino.dia}-${idx}`] ? 0.7 : 1,
+                              backgroundColor: completedExercises[`${treino.dia}-${idx}`] ? "#e6f3ff" : "#ffffff",
                             }}
                             transition={{ duration: 0.2 }}
                           >
-                            <div className="flex items-center gap-2">
+                            <div className="flex items-center gap-2 flex-1 min-w-0">
                               <Checkbox
                                 id={`${treino.dia}-${idx}`}
-                                checked={completedExercises[`${treino.dia}-${idx}` as keyof typeof completedExercises] || false}
+                                checked={completedExercises[`${treino.dia}-${idx}`] || false}
                                 onCheckedChange={() => toggleExercise(treino.dia, idx)}
                                 className="border-blue-400 data-[state=checked]:bg-blue-500 data-[state=checked]:border-blue-500"
                               />
                               <label
                                 htmlFor={`${treino.dia}-${idx}`}
-                                className={`text-blue-800 font-semibold text-xs sm:text-sm ${
-                                  completedExercises[`${treino.dia}-${idx}` as keyof typeof completedExercises] ? "line-through" : ""
+                                className={`text-blue-800 font-semibold text-xs sm:text-sm truncate ${
+                                  completedExercises[`${treino.dia}-${idx}`] ? "line-through" : ""
                                 }`}
                               >
                                 {ex.exercicio}
                               </label>
                             </div>
-                            <Badge className="bg-blue-500 text-white text-xs sm:text-sm">{ex.reps}</Badge>
+                            <Badge className="bg-blue-500 text-white text-xs sm:text-sm flex-shrink-0">{ex.reps}</Badge>
                           </motion.li>
                         ))}
                       </ul>
