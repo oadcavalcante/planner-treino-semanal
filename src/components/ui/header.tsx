@@ -1,14 +1,14 @@
-"use client";
+'use client';
 
-import { Card, CardContent } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
-import { Dumbbell } from "lucide-react";
-import { motion } from "framer-motion";
+import { Card, CardContent } from '@/components/ui/card';
+import { Button } from '@/components/ui/button';
+import { Dumbbell } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 export default function Header() {
   return (
     <header className="w-full max-w-4xl mx-auto mb-4 sm:mb-6">
-      <Card className="bg-gradient-to-r from-blue-600 to-blue-800 border-blue-900 shadow-2xl">
+      <Card className="bg-gradient-to-r from-red-800 to-red-600 border-amber-900 shadow-2xl">
         <CardContent className="p-4 sm:p-6 text-center">
           <div className="flex flex-col items-center gap-3">
             <div className="flex items-center gap-2">
@@ -24,7 +24,9 @@ export default function Header() {
               </h1>
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-base sm:text-lg text-blue-200 italic">@oadcavalcante</span>
+              <span className="text-base sm:text-lg text-blue-200 italic">
+                @oadcavalcante
+              </span>
               <motion.span
                 className="text-xl sm:text-2xl"
                 animate={{ scale: [1, 1.2, 1] }}
