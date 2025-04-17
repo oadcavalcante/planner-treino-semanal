@@ -1,17 +1,21 @@
-import type { Metadata } from "next";
-import { Poppins } from "next/font/google";
-import "./globals.css";
+import type { Metadata } from 'next';
+import { Poppins } from 'next/font/google';
+import './globals.css';
 
 const poppins = Poppins({
-  weight: ["300", "400", "500", "600", "700"],
-  style: ["normal", "italic"],
-  subsets: ["latin"],
-  variable: "--font-poppins",
+  weight: ['300', '400', '500', '600', '700'],
+  style: ['normal', 'italic'],
+  subsets: ['latin'],
+  variable: '--font-poppins',
 });
 
-export const metadata: Metadata = {
-  title: "Planner de treino semanal @oadcavalcante",
-  description: "Planner de treino semanal @oadcavalcante",
+export const metadata = {
+  title: 'GymPlanner',
+  description: 'Seu planejador de treinos de academia',
+  manifest: '/manifest.json',
+  icons: {
+    icon: '/icons/favicon.ico',
+  },
 };
 
 export default function RootLayout({
@@ -21,7 +25,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-br">
-      <body className={`${poppins.variable} antialiased font-poppins`}>{children}</body>
+      <body className={`${poppins.variable} antialiased font-poppins`}>
+        {children}
+      </body>
     </html>
   );
 }
