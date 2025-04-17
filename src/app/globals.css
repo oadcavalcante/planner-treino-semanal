@@ -115,7 +115,24 @@
   * {
     @apply border-border outline-ring/50;
   }
+
+  html, body {
+    @apply min-h-screen; 
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden;
+  }
+
   body {
-    @apply bg-background text-foreground font-sans;
+    @apply bg-background text-foreground font-sans flex flex-col;
+    padding-bottom: env(safe-area-inset-bottom); 
+  }
+
+  #root {
+    @apply flex flex-col flex-1;
+  }
+
+  main {
+    @apply flex-1 pb-4; 
   }
 }

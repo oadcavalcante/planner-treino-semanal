@@ -9,12 +9,17 @@ const poppins = Poppins({
   variable: '--font-poppins',
 });
 
-export const metadata = {
+export const metadata: Metadata = {
   title: 'GymPlanner',
   description: 'Seu planejador de treinos de academia',
   manifest: '/manifest.json',
   icons: {
     icon: '/icons/favicon.ico',
+  },
+  viewport: {
+    width: 'device-width',
+    initialScale: 1.0,
+    viewportFit: 'cover',
   },
 };
 
@@ -26,7 +31,7 @@ export default function RootLayout({
   return (
     <html lang="pt-br">
       <body className={`${poppins.variable} antialiased font-poppins`}>
-        {children}
+        <div id="root">{children}</div>
       </body>
     </html>
   );
